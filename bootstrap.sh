@@ -1,4 +1,4 @@
-#!usr/bin/env bash
+#!/usr/bin/env bash
 
 # download nodejs setup file and run
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
