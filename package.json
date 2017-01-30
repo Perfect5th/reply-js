@@ -4,6 +4,7 @@
   "description": "simple commenting system",
   "main": "server.js",
   "dependencies": {
+    "hapi": "^16.1.0",
     "mongodb": "^2.2.21"
   },
   "devDependencies": {},

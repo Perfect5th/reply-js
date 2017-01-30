@@ -11,3 +11,4 @@ echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb
 # update sources and install packages
 apt-get update
 apt-get install -y nodejs build-essential mongodb-org
+npm install nodemon --global

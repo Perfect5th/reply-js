@@ -1,34 +1,30 @@
-var http = require('http');
+'use strict';
 
-http.createServer(function(request, response) {
-  var headers = request.headers;
-  var method = request.method;
-  var url = request.url;
-  var body = [];
+const Hapi = require('hapi');
 
-  request.on('error', function(err) {
-    console.error(err);
-  }).on('data', function(chunk) {
-    body.push(chunk);
-  }).on('end', function() {
-    body = Buffer.concat(body).toString();
+const server = new Hapi.Server();
+server.connection({port: 3000, host: '0.0.0.0'});
 
-    // start of response
-    response.on('error', function(err) {
-      console.error(err);
-    });
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: function(request, reply) {
+        reply('Hello, world!');
+    }
+});
 
-    response.statusCode = 200;
-    response.setHeader('Content-Type', 'application/json');
+server.route({
+    method: 'GET',
+    path: '/{name}',
+    handler: function(request, reply) {
+        reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
+    }
+});
 
-    var responseBody = {
-      headers: headers,
-      method: method,
-      url: url,
-      body: body
-    };
-
-    response.write(JSON.stringify(responseBody));
-    response.end();
-  });
-}).listen(8080);
+server.start((err) => {
+    
+    if (err) {
+        throw err;
+    }
+    console.log(`Server running at: ${server.info.uri}`);
+});
